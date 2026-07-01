@@ -7,6 +7,6 @@ public:
             right >>=1;
             cnt++;
         }
-        return right << cnt;
+        return left << cnt;
     }
 };
