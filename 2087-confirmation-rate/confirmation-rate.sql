@@ -1,19 +1,5 @@
-SELECT
-    s.user_id,
-    ROUND(
-        AVG(
-            CASE 
-                WHEN c.action = 'confirmed' THEN 1.00
-                ELSE 0
-            END
-        ),
-        2
-    ) confirmation_rate
-FROM
-    Signups s
-LEFT JOIN
-    Confirmations c
-    ON
-    s.user_id = c.user_id
-GROUP BY
-    s.user_id
+select s.user_id , ifnull(round(sum(action='confirmed')/count(*),2),0.00) as confirmation_rate
+from Signups as s
+left join Confirmations as c
+on s.user_id = c.user_id
+group by s.user_id
